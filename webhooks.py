@@ -31,6 +31,7 @@ import requests
 from ipaddress import ip_address, ip_network
 from flask import Flask, request, abort
 
+import os
 
 application = Flask(__name__)
 
@@ -68,6 +69,8 @@ def index():
 
     # Enforce secret
     secret = config.get('enforce_secret', '')
+    if not secret:
+      secret=os.environ['GITHUB_WEB_HOOK_SECRET']
     if secret:
         # Only SHA1 is supported
         header_signature = request.headers.get('X-Hub-Signature')
