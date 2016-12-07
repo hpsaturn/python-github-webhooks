@@ -1,8 +1,8 @@
 ======================
-Python GitHub Webhooks
+MALOS-HAL Python GitHub Webhooks
 ======================
 
-Simple Python WSGI application to handle GitHub webhooks.
+Matrix Creator Hardware abstraction layer and OS layer handle GitHub webhooks for continous integration webhooks over RaspberryPi
 
 
 Install
