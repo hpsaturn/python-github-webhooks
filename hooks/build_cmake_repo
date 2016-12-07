@@ -1,0 +1,18 @@
+#!/bin/bash
+# cmake project builder
+
+git_url=$1
+commit=$2
+repo=$3
+workdir=/tmp/src/$commit
+repodir=$workdir/$repo
+
+mkdir -p $workdir && cd $workdir
+git clone --recursive $git_url $repo
+cd $repodir
+git checkout $commit
+mkdir -p $repodir/build && cd $repodir/build 
+cmake ..
+make -j $(nproc) 
+
+
