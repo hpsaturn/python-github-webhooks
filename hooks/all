@@ -40,7 +40,7 @@ git_url = payload['repository']['git_url']
 user = payload['head_commit']['author']['name']
 msg  = payload['head_commit']['message']
 commit = payload['head_commit']['id']
-commit_url=payload['repository']['git_commits_url']
+commit_url=payload['head_commit']['url']
 
 # notify pre-execution
 send_slack_message(builder,True,repo,user,msg)
@@ -49,12 +49,12 @@ p=subprocess.Popen(['./hooks/build_cmake_repo',git_url,commit,repo],stdout=subpr
 stdout, stderr = p.communicate()
 
 if p.returncode != 0:
-    print ("ERROR: External app did not complete successfully " "(error code is %s)" % p.returncode)
+    print ("ERROR: pipe execution: " "(error code: %s)" % p.returncode)
     msg="*failed* ```%s```" % ('\n'.join(stderr.splitlines()[-4:]))
 else:
     msg="*success*"
 
-#msg=msg+"\n[commit](%s)" % (commit_url)
+msg=msg+"\n[commit](%s)" % (commit_url)
 
 # notify results
 send_slack_message(builder,False,repo,user,msg)
