@@ -11,6 +11,7 @@ mkdir -p $workdir && cd $workdir
 git clone --recursive $git_url $repo
 cd $repodir
 git checkout $commit
+git submodule update --init
 mkdir -p $repodir/build && cd $repodir/build 
 cmake ..
 make -j $(nproc) 
